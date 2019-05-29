@@ -1,3 +1,5 @@
+const OSinfo = require("../modules/OSinfo");
+
 process.stdin.setEncoding("utf-8");
 
 process.stdin.on("readable", function() {
@@ -6,15 +8,18 @@ process.stdin.on("readable", function() {
     if (input !== null) {
         const instruction = input.toString().trim();
         switch (instruction) {
-            case "node":
+            case "/node":
                 process.stdout.write(process.versions.node + "\n");
                 break;
-            case "logname":
+            case "/logname":
                 process.stdout.write(process.env.LOGNAME + "\n");
                 break;
             case "/exit":
                 process.stdout.write("Quitting app!\n");
                 process.exit();
+                break;
+            case "/getOSinfo":
+                OSinfo.print();
                 break;
             default:
                 process.stderr.write("Wrong instruction!\n");
